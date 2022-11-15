@@ -1,0 +1,53 @@
+.tag1 {
+  font-family: Arial;
+  font-size: 17px;
+  font-weight: 400;
+  color: rgb(44, 43, 43);
+  border-radius: 10rem;
+  padding: 2px 8px;
+  background-color: #0cf;
+  line-height: 20px;
+  letter-spacing: 0.4px;
+  position: relative;
+  margin: 0 8px 0 0;
+}
+
+.tag2 {
+  font-family: Arial;
+  font-size: 17px;
+  font-weight: 400;
+  color: rgb(44, 43, 43);
+  border-radius: 10rem;
+  padding: 2px 8px;
+  background-color: lightcoral;
+  line-height: 20px;
+  letter-spacing: 0.4px;
+  position: relative;
+  margin: 0 8px 0 0;
+}
+.tag3 {
+  font-family: Arial;
+  font-size: 17px;
+  font-weight: 400;
+  color: rgb(44, 43, 43);
+  border-radius: 10rem;
+  padding: 2px 8px;
+  background-color: lightgreen;
+  line-height: 20px;
+  letter-spacing: 0.4px;
+  position: relative;
+  margin: 0 8px 0 0;
+}
+.tag4 {
+  font-family: Arial;
+  font-size: 17px;
+  font-weight: 400;
+  color: rgb(44, 43, 43);
+  border-radius: 10rem;
+  padding: 2px 8px;
+  background-color: lightseagreen;
+  line-height: 20px;
+  letter-spacing: 0.4px;
+  position: relative;
+  margin: 0 8px 0 0;
+}
