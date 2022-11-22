@@ -5,34 +5,15 @@ import sys
 import operator
 import argparse
 from nltk.corpus import stopwords
+from gensim import corpora, models
 # from textblob import TextBlob
 from bs4 import BeautifulSoup
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "word",
-        help="the word to be searched for in the text file."
-    )
-    parser.add_argument(
-        "filename",
-        help="the path to the text file to be searched through"
-    )
-
-    args = parser.parse_args()
-
-    try:
-        open(args.filename)
-    except FileNotFoundError:
-
-        # Custom error print
-        sys.stderr.write("Error: " + args.filename + " does not exist!")
-        sys.exit(1)
-
-    word_freq(args.word, args.filename)
+    word_freq("data.txt")
 
 
-def word_freq(word, filename):
+def word_freq(filename):
     doc = {}
     termdf = {}
     msg_doc = {}
@@ -40,7 +21,7 @@ def word_freq(word, filename):
     msg_line_count = 0
     for line in open(filename):
         # print(line)
-        if(line[0] == '*'):
+        if(line[0] == '*' or line[0] == '>'):
             if(msg_line_count<3):
                 msg_doc.clear()
                 msg_line_count = 0
@@ -55,6 +36,7 @@ def word_freq(word, filename):
                     doc[term] = 1
             msg_doc.clear()
         else:
+            # if(line[0] != '>'):
             msg_line_count+=1
             line = BeautifulSoup(line).get_text()
             split = line.split(' ')
@@ -85,6 +67,19 @@ def word_freq(word, filename):
         top.append(entry[0])
         topfreq.append(entry[1])
 
+    with open("tf_idf_data","w") as f:
+        for doc in sorted_doc:
+            if not doc[0][0].isnumeric():
+                f.write('\"'+str(doc[0])+"\":"+str(doc[1])+',\n')
+
+    words = [doc[0] for doc in sorted_doc]
+    dictionary = corpora.Dictionary(words)
+    corpus = [dictionary.doc2bow(text) for text in words]
+    ldamodel = gensim.models.ldamodel.LdaModel(corpus, num_topics = 20, id2word = dictionary, passes = 20)
+    print(ldamodel.print_topics(num_topics = 20, num_words = 3))
+
+    # with open("words","w") as f:
+    #     f.write(sorted_doc.keys())
     # plt.barh(y, x)
     plt.barh(top, topfreq)
     plt.xlabel("Frequency")
