@@ -18,16 +18,13 @@ const loaderId = setInterval(() => {
 const selectorConstant = {
   mailListTrNew: "zA zE",
   mailListTrHasBeenRead: "zA yO",
-
   mailerTd: ".yX.xY",
-
   mailTitleTd: "xY a4W",
-
   gmailPrimaryTab: 'div[aria-label="Primary"]',
   tabSelectedAttr: "aria-selected",
-
   mailTitle: "nH V8djrc byY",
   mailHead: "y6",
+  mailboxTbody: ".F cf zt",
 };
 
 const htmlTpl = {
@@ -41,6 +38,7 @@ function startExtension(gmail) {
   gmail.observe.on("load", () => {
     const userEmail = gmail.get.user_email();
     console.log("Hello, " + userEmail + ". This is your extension talking!");
+    getThreadId();
   });
 
   gmail.observe.on("view_email", (domEmail) => {
@@ -78,6 +76,12 @@ function startExtension(gmail) {
   });
 
   // init();
+}
+function getThreadId() {
+  const table = document.querySelector(selectorConstant.mailboxTbody);
+  for (var tr of table.children) {
+    console.log(tr);
+  }
 }
 
 function init(gmail) {
